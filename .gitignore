@@ -1,0 +1,23 @@
+## Vendor Dependencies
+node_modules
+vendor
+
+## Project variables
+.env
+.env.*
+
+## Logs and Caches
+*.log
+.phpunit.result.cache
+
+## Editor Files
+.vscode
+.editorconfig
+.idea
+/.vagrant
+
+## OS Files
+.DS_Store
+.DS_Store?
+.localized
+.Spotlight-V100
