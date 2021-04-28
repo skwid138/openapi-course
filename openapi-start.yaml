@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.0.2
 info:
   title: OpenAPI Course
   description: Specification for OpenAPI Course
@@ -18,5 +18,17 @@ servers:
     description: QA Server
   - url: https://prod.example.com
     description: Production Server
-paths: {}
+paths:
+  /v1/customers:
+    get:
+      responses:
+        200:
+          description: List of Customers
+  /v1/beers:
+    get:
+      responses:
+        200:
+          description: List of all da Beers
+        404:
+          description: No más cerveza
 components: {}
