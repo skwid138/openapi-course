@@ -27,12 +27,7 @@ paths:
           content:
             application/json:
               schema:
-                maxItems: 100
-                minItems: 1
-                type: array
-                description: List of Customers
-                items:
-                  $ref: '#/components/schemas/inline_response_200'
+                $ref: '#/components/schemas/CustomerPagedList'
   /v1/beers:
     get:
       responses:
@@ -41,14 +36,12 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/inline_response_200_1'
+                $ref: '#/components/schemas/BeerPagedList'
         404:
           description: No Beers Found
 components:
   schemas:
-    v1customers_address:
+    Address:
       type: object
       properties:
         line1:
@@ -71,7 +64,7 @@ components:
         zipCode:
           type: string
           example: "33701"
-    inline_response_200:
+    Customer:
       type: object
       properties:
         id:
@@ -88,16 +81,30 @@ components:
           type: string
           example: Thompson
         address:
-          $ref: '#/components/schemas/v1customers_address'
+          $ref: '#/components/schemas/Address'
       description: customer object
-    v1beers_brewery:
+    CustomerList:
+      maxItems: 100
+      minItems: 1
+      type: array
+      description: List of Customers
+      items:
+        $ref: '#/components/schemas/Customer'
+    CustomerPagedList:
+      type: object
+      properties:
+        content:
+          $ref: '#/components/schemas/CustomerList'
+      allOf:
+        - $ref: '#/components/schemas/PagedResponse'
+    Brewery:
       type: object
       properties:
         name:
           type: string
         location:
           type: string
-    inline_response_200_1:
+    Beer:
       type: object
       properties:
         beerName:
@@ -117,5 +124,67 @@ components:
           type: integer
           format: int32
         brewery:
-          $ref: '#/components/schemas/v1beers_brewery'
+          $ref: '#/components/schemas/Brewery'
       description: Beer Object
+    BeerList:
+      type: array
+      items:
+        $ref: '#/components/schemas/Beer'
+    BeerPagedList:
+      type: object
+      properties:
+        content:
+          $ref: '#/components/schemas/BeerList'
+      allOf:
+        - $ref: '#/components/schemas/PagedResponse'
+    PagedResponse:
+      type: object
+      properties:
+        pageable:
+          $ref: '#/components/schemas/PagedResponse_pageable'
+        totalPages:
+          type: integer
+          format: int32
+        last:
+          type: boolean
+        totalElements:
+          type: integer
+          format: int32
+        size:
+          type: integer
+          format: int32
+        number:
+          type: integer
+          format: int32
+        numberOfElements:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/PagedResponse_pageable_sort'
+        first:
+          type: boolean
+    PagedResponse_pageable_sort:
+      type: object
+      properties:
+        sorted:
+          type: boolean
+        unsorted:
+          type: boolean
+    PagedResponse_pageable:
+      type: object
+      properties:
+        sort:
+          $ref: '#/components/schemas/PagedResponse_pageable_sort'
+        offset:
+          type: integer
+          format: int32
+        pageNumber:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        paged:
+          type: boolean
+        unpaged:
+          type: boolean
