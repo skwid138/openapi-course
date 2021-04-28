@@ -1,4 +1,4 @@
-openapi: 3.0.2
+openapi: 3.0.3
 info:
   title: OpenAPI Course
   description: Specification for OpenAPI Course
@@ -24,11 +24,98 @@ paths:
       responses:
         200:
           description: List of Customers
+          content:
+            application/json:
+              schema:
+                maxItems: 100
+                minItems: 1
+                type: array
+                description: List of Customers
+                items:
+                  $ref: '#/components/schemas/inline_response_200'
   /v1/beers:
     get:
       responses:
         200:
-          description: List of all da Beers
+          description: List of Beers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/inline_response_200_1'
         404:
-          description: No más cerveza
-components: {}
+          description: No Beers Found
+components:
+  schemas:
+    v1customers_address:
+      type: object
+      properties:
+        line1:
+          type: string
+          example: 123 main
+        city:
+          type: string
+          example: St Pete
+        stateCode:
+          maxLength: 2
+          minLength: 2
+          type: string
+          description: 2 Letter State Code
+          enum:
+            - AL
+            - AK
+            - AZ
+            - AR
+            - CA
+        zipCode:
+          type: string
+          example: "33701"
+    inline_response_200:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        firstName:
+          maxLength: 100
+          minLength: 2
+          type: string
+          example: John
+        lastName:
+          maxLength: 100
+          minLength: 2
+          type: string
+          example: Thompson
+        address:
+          $ref: '#/components/schemas/v1customers_address'
+      description: customer object
+    v1beers_brewery:
+      type: object
+      properties:
+        name:
+          type: string
+        location:
+          type: string
+    inline_response_200_1:
+      type: object
+      properties:
+        beerName:
+          type: string
+        style:
+          type: string
+          enum:
+            - ALE
+            - PALE_ALE
+            - IPA
+            - WHEAT
+            - LAGER
+        price:
+          type: number
+          format: float
+        quantityOnHand:
+          type: integer
+          format: int32
+        brewery:
+          $ref: '#/components/schemas/v1beers_brewery'
+      description: Beer Object
