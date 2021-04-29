@@ -101,6 +101,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Customer'
+    put:
+      tags:
+        - Customers
+      summary: Update Customer
+      description: Update customer by id.
+      parameters:
+        - name: customerId
+          in: path
+          description: Customer Id
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+        required: true
+      responses:
+        204:
+          description: Customer Updated
   /v1/beers:
     get:
       tags:
@@ -362,3 +386,13 @@ components:
         type: integer
         format: int32
         default: 25
+    CustomerIdPathParm:
+      name: customerId
+      in: path
+      description: Customer Id
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+        format: uuid
