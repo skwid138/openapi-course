@@ -196,7 +196,7 @@ paths:
           description: Conflict
       callbacks:
         orderStatusChange:
-          ${request.body#/orderStatusCallbackUrl}:
+          '{$request.body#/orderStatusCallbackUrl}':
             description: Webhook for order status change notifications
             post:
               requestBody:
