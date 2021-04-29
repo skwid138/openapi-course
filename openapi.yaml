@@ -20,6 +20,7 @@ servers:
     description: Production Server
 security:
   - BasicAuth: []
+  - JwtAuthToken: []
 paths:
   /v1/customers:
     get:
@@ -606,3 +607,7 @@ components:
     BasicAuth:
       type: http
       scheme: basic
+    JwtAuthToken:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
