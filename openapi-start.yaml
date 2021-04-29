@@ -125,6 +125,25 @@ paths:
       responses:
         204:
           description: Customer Updated
+    delete:
+      tags:
+        - Customers
+      summary: Delete Customer By ID
+      description: Delete a customer by its Id value.
+      operationId: deleteCustomerV1
+      parameters:
+        - name: customerId
+          in: path
+          description: Customer Id
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: Customer Delete
   /v1/beers:
     get:
       tags:
