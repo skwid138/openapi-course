@@ -18,6 +18,8 @@ servers:
     description: QA Server
   - url: https://prod.example.com
     description: Production Server
+security:
+  - BasicAuth: []
 paths:
   /v1/customers:
     get:
@@ -600,3 +602,7 @@ components:
       schema:
         type: string
         format: uuid
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
