@@ -77,6 +77,10 @@ paths:
                 type: string
                 format: uri
                 example: http://example.com/v1/customers/{assignedIdValue}
+        400:
+          description: Bad Request
+        409:
+          description: Conflict
   /v1/customers/{customerId}:
     get:
       tags:
@@ -101,6 +105,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Customer'
+        404:
+          description: Not found
     put:
       tags:
         - Customers
@@ -125,6 +131,10 @@ paths:
       responses:
         204:
           description: Customer Updated
+        400:
+          description: Bad Request
+        409:
+          description: Conflict
     delete:
       tags:
         - Customers
@@ -144,6 +154,8 @@ paths:
       responses:
         200:
           description: Customer Delete
+        404:
+          description: Not found
   /v1/beers:
     get:
       tags:
@@ -253,6 +265,25 @@ paths:
       responses:
         204:
           description: Beer Updated
+    delete:
+      tags:
+        - Beers
+      summary: Delete Beer by Id
+      description: Delete a beer resource by its ID value.
+      operationId: deleteBeerV1
+      parameters:
+        - name: beerId
+          in: path
+          description: Beer Id
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: Beer Resource Deleted
 components:
   schemas:
     Address:
