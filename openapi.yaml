@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.0.2
 info:
   title: OpenAPI Course
   description: Specification for OpenAPI Course
@@ -25,6 +25,7 @@ paths:
         - Customers
       summary: List Customers
       description: Get a list of customers in the system
+      operationId: listCustomersV1
       parameters:
         - name: pageNumber
           in: query
@@ -59,6 +60,7 @@ paths:
         - Customers
       summary: Get Customer By ID
       description: Get a single **Customer** by its Id value.
+      operationId: getCustomerByIdV1
       parameters:
         - name: customerId
           in: path
@@ -82,6 +84,7 @@ paths:
         - Beers
       summary: List Beers
       description: List all beers in system.
+      operationId: listBeersV1
       parameters:
         - name: pageNumber
           in: query
@@ -118,6 +121,7 @@ paths:
         - Beers
       summary: Get Beer by ID
       description: Get a single beer by its ID value.
+      operationId: getBeerByIdV1
       parameters:
         - name: beerId
           in: path
