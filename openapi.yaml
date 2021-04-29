@@ -193,6 +193,7 @@ components:
         id:
           type: string
           format: uuid
+          readOnly: true
         firstName:
           maxLength: 100
           minLength: 2
