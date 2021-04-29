@@ -216,6 +216,10 @@ paths:
                 type: string
                 format: uri
                 example: http://example.com/v1/beers/{assignedIdValue}
+        400:
+          description: Bad Request
+        409:
+          description: Conflict
   /v1/beers/{beerId}:
     get:
       tags:
@@ -240,6 +244,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Beer'
+        404:
+          description: Not Found
     put:
       tags:
         - Beers
@@ -265,6 +271,12 @@ paths:
       responses:
         204:
           description: Beer Updated
+        400:
+          description: Bad Request
+        404:
+          description: Not Found
+        409:
+          description: Conflict
     delete:
       tags:
         - Beers
@@ -284,6 +296,8 @@ paths:
       responses:
         200:
           description: Beer Resource Deleted
+        404:
+          description: Not Found
 components:
   schemas:
     Address:
