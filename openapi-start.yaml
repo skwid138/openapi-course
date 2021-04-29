@@ -138,6 +138,29 @@ paths:
                 $ref: '#/components/schemas/BeerPagedList'
         404:
           description: No Beers Found
+    post:
+      tags:
+        - Beers
+      summary: New Beer
+      description: Create a new Beer Object
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Beer'
+        required: true
+      responses:
+        201:
+          description: Beer Created
+          headers:
+            Location:
+              description: Beer Object created
+              style: simple
+              explode: false
+              schema:
+                type: string
+                format: uri
+                example: http://example.com/v1/beers/{assignedIdValue}
   /v1/beers/{beerId}:
     get:
       tags:
@@ -231,6 +254,10 @@ components:
     Beer:
       type: object
       properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
         beerName:
           type: string
         style:
