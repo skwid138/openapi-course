@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.0.2
 info:
   title: OpenAPI Course
   description: Specification for OpenAPI Course
@@ -101,6 +101,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Customer'
+    put:
+      tags:
+        - Customers
+      summary: Update Customer
+      description: Update customer by id.
+      parameters:
+        - name: customerId
+          in: path
+          description: Customer Id
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+        required: true
+      responses:
+        204:
+          description: Customer Updated
   /v1/beers:
     get:
       tags:
@@ -138,6 +162,29 @@ paths:
                 $ref: '#/components/schemas/BeerPagedList'
         404:
           description: No Beers Found
+    post:
+      tags:
+        - Beers
+      summary: New Beer
+      description: Create a new Beer Object
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Beer'
+        required: true
+      responses:
+        201:
+          description: Beer Created
+          headers:
+            Location:
+              description: Beer Object created
+              style: simple
+              explode: false
+              schema:
+                type: string
+                format: uri
+                example: http://example.com/v1/beers/{assignedIdValue}
   /v1/beers/{beerId}:
     get:
       tags:
@@ -231,6 +278,10 @@ components:
     Beer:
       type: object
       properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
         beerName:
           type: string
         style:
@@ -335,3 +386,13 @@ components:
         type: integer
         format: int32
         default: 25
+    CustomerIdPathParm:
+      name: customerId
+      in: path
+      description: Customer Id
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+        format: uuid
