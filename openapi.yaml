@@ -57,6 +57,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CustomerPagedList'
+      security: []
     post:
       tags:
         - Customers
@@ -110,6 +111,7 @@ paths:
                 $ref: '#/components/schemas/Customer'
         404:
           description: Not found
+      security: []
     put:
       tags:
         - Customers
