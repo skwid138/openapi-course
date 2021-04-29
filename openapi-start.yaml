@@ -1,4 +1,4 @@
-openapi: 3.0.2
+openapi: 3.0.3
 info:
   title: OpenAPI Course
   description: Specification for OpenAPI Course
@@ -21,6 +21,11 @@ servers:
 paths:
   /v1/customers:
     get:
+      tags:
+        - Customers
+      summary: List Customers
+      description: Get a list of customers in the system
+      operationId: listCustomersV1
       parameters:
         - name: pageNumber
           in: query
@@ -49,8 +54,36 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CustomerPagedList'
+    post:
+      tags:
+        - Customers
+      summary: New Customer
+      description: Create a new customer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+        required: true
+      responses:
+        201:
+          description: Customer Created
+          headers:
+            Location:
+              description: Location of the created customer
+              style: simple
+              explode: false
+              schema:
+                type: string
+                format: uri
+                example: http://example.com/v1/customers/{assignedIdValue}
   /v1/customers/{customerId}:
     get:
+      tags:
+        - Customers
+      summary: Get Customer By ID
+      description: Get a single **Customer** by its Id value.
+      operationId: getCustomerByIdV1
       parameters:
         - name: customerId
           in: path
@@ -70,6 +103,11 @@ paths:
                 $ref: '#/components/schemas/Customer'
   /v1/beers:
     get:
+      tags:
+        - Beers
+      summary: List Beers
+      description: List all beers in system.
+      operationId: listBeersV1
       parameters:
         - name: pageNumber
           in: query
@@ -102,6 +140,11 @@ paths:
           description: No Beers Found
   /v1/beers/{beerId}:
     get:
+      tags:
+        - Beers
+      summary: Get Beer by ID
+      description: Get a single beer by its ID value.
+      operationId: getBeerByIdV1
       parameters:
         - name: beerId
           in: path
@@ -150,6 +193,7 @@ components:
         id:
           type: string
           format: uuid
+          readOnly: true
         firstName:
           maxLength: 100
           minLength: 2
