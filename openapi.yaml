@@ -21,6 +21,10 @@ servers:
 paths:
   /v1/customers:
     get:
+      tags:
+        - Customers
+      summary: List Customers
+      description: Get a list of customers in the system
       parameters:
         - name: pageNumber
           in: query
@@ -49,8 +53,35 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CustomerPagedList'
+  /v1/customers/{customerId}:
+    get:
+      tags:
+        - Customers
+      summary: Get Customer By ID
+      description: Get a single **Customer** by its Id value.
+      parameters:
+        - name: customerId
+          in: path
+          description: Customer Id
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: Found Customer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
   /v1/beers:
     get:
+      tags:
+        - Beers
+      summary: List Beers
+      description: List all beers in system.
       parameters:
         - name: pageNumber
           in: query
@@ -81,6 +112,29 @@ paths:
                 $ref: '#/components/schemas/BeerPagedList'
         404:
           description: No Beers Found
+  /v1/beers/{beerId}:
+    get:
+      tags:
+        - Beers
+      summary: Get Beer by ID
+      description: Get a single beer by its ID value.
+      parameters:
+        - name: beerId
+          in: path
+          description: Beer Id
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: Found Beer by Id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Beer'
 components:
   schemas:
     Address:
