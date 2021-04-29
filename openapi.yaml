@@ -1,4 +1,4 @@
-openapi: 3.0.2
+openapi: 3.0.3
 info:
   title: OpenAPI Course
   description: Specification for OpenAPI Course
@@ -125,6 +125,25 @@ paths:
       responses:
         204:
           description: Customer Updated
+    delete:
+      tags:
+        - Customers
+      summary: Delete Customer By ID
+      description: Delete a customer by its Id value.
+      operationId: deleteCustomerV1
+      parameters:
+        - name: customerId
+          in: path
+          description: Customer Id
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: Customer Delete
   /v1/beers:
     get:
       tags:
@@ -209,6 +228,31 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Beer'
+    put:
+      tags:
+        - Beers
+      summary: Update Beer by ID
+      description: Update a beer by its ID value.
+      operationId: updateBeerByIdV1
+      parameters:
+        - name: beerId
+          in: path
+          description: Beer Id
+          required: true
+          style: simple
+          explode: false
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Beer'
+        required: true
+      responses:
+        204:
+          description: Beer Updated
 components:
   schemas:
     Address:
@@ -390,6 +434,16 @@ components:
       name: customerId
       in: path
       description: Customer Id
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+        format: uuid
+    BeerIdPathParm:
+      name: beerId
+      in: path
+      description: Beer Id
       required: true
       style: simple
       explode: false
