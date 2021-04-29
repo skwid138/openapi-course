@@ -1,4 +1,4 @@
-openapi: 3.0.2
+openapi: 3.0.3
 info:
   title: OpenAPI Course
   description: Specification for OpenAPI Course
@@ -54,6 +54,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CustomerPagedList'
+    post:
+      tags:
+        - Customers
+      summary: New Customer
+      description: Create a new customer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+        required: true
+      responses:
+        201:
+          description: Customer Created
   /v1/customers/{customerId}:
     get:
       tags:
